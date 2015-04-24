@@ -12,7 +12,9 @@
 #include <kern/kdebug.h>
 
 #define CMDBUF_SIZE	80	// enough for one VGA text line
-
+#define COLOR_GRN 2
+#define COLOR_RED 4
+#define COLOR_YLW 15
 
 struct Command {
 	const char *name;
@@ -141,7 +143,7 @@ monitor(struct Trapframe *tf)
 {
 	char *buf;
 
-	cprintf("Welcome to the JOS kernel monitor!\n");
+	cprintf("Welcome to %che JOS kernel monitor!\n",'t');
 	cprintf("Type 'help' for a list of commands.\n");
 
 

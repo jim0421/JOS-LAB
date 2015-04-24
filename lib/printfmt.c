@@ -7,7 +7,10 @@
 #include <inc/string.h>
 #include <inc/stdarg.h>
 #include <inc/error.h>
-
+#define COLOR_GRN 2
+#define COLOR_RED 4
+#define COLOR_YLW 15
+static int Color = 0;
 /*
  * Space or zero padding and a field width are supported for the numeric
  * formats only.
@@ -157,10 +160,25 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
 
 		// character
 		case 'c':
-			putch(va_arg(ap, int), putdat);
+			ch = va_arg(ap, int) + (2<<8);
+			putch(ch, putdat);
+			//Color = 0;
 			break;
-
-		// error message
+/*		case 'C':
+			switch(va_arg(ap,int)){
+				case COLOR_RED:
+					Color = COLOR_RED << 8;	
+					break;
+				case COLOR_GRN:
+					Color = COLOR_GRN << 8;	
+					break;
+				case COLOR_YLW:
+					Color = COLOR_YLW << 8;	
+					break;	
+				default:
+					Color = 0;					
+			}
+*/		// error message
 		case 'e':
 			err = va_arg(ap, int);
 			if (err < 0)
